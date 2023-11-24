@@ -1,8 +1,13 @@
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import React from "react";
-import CountDown from "./CountDown";
+// import CountDown from "./CountDown";
 
 const Offer = () => {
+
+  const CountDown = dynamic(() => import('./CountDown'), { ssr: false })
+
+
   return (
     <div className="bg-black h-screen flex flex-col md:flex-row md:justify-between md:bg-[url('/offerBg.png')] md:h-[70vh]">
       {/* TEXT CONTAINER */}
@@ -12,7 +17,7 @@ const Offer = () => {
           Progressively simplify effective e-toilers and process-centric methods
           of empowerment. Quickly pontificate parallel.
         </p>
-        <CountDown/>
+        <CountDown />
         <button className="bg-red-500 text-white rounded-md py-3 px-6">Order Now</button>
       </div>
       {/* IMAGE CONTAINER */}
