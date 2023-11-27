@@ -3,7 +3,8 @@ import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+
 
 const LoginPage = () => {
 
@@ -11,18 +12,19 @@ const LoginPage = () => {
 
   const { data, status } = useSession()
 
-  console.log(">>>check data: ", data)
-  console.log(">>>check status: ", status)
-
-  if (status === "loading") {
-    return <p>Loading...</p>;
-  }
+  console.log(">>>check data: ", data);
+  console.log(">>>check status: ", status);
 
   useEffect(() => {
     if (status === "authenticated") {
       router.push("/")
     }
-  }, [])
+  }, [status]);
+
+
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="p-4 h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex items-center justify-center">
