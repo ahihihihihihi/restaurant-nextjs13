@@ -1,10 +1,10 @@
 
 import { prisma } from "@/app/utils/connect";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 
 // FETCH ALL PRODUCTS
-export const GET = async (req) => {
+export const GET = async (req: NextRequest) => {
     const { searchParams } = new URL(req.url);
     const cat = searchParams.get("cat");
 
