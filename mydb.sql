@@ -140,26 +140,26 @@ INSERT INTO "public"."Category" ("id", "createdAt", "title", "desc", "color", "i
 ('clpglrjje0002ram0isknivcp', '2023-11-27 07:43:40.202', 'Cheesy Pizzas', 'Pizza Paradise: Irresistible slices, mouthwatering toppings, and cheesy perfection.', 'white', '/temporary/m3.png', 'pizzas');
 
 INSERT INTO "public"."Order" ("id", "createdAt", "price", "products", "status", "intent_id", "userEmail") VALUES
-('clpgrgqmm0000rah4p338bk7b', '2023-11-27 10:23:13.871', 111.000000000000000000000000000000, '{"{\"title\": \"pizza1\"}"}', 'being prepared!', NULL, 'bdsthocu20@gmail.com');
+('clpgrgqmm0000rah4p338bk7b', '2023-11-27 10:23:13.871', 111.000000000000000000000000000000, '{"{\"title\": \"pizza1\"}"}', 'prepared', NULL, 'bdsthocu20@gmail.com');
 INSERT INTO "public"."Order" ("id", "createdAt", "price", "products", "status", "intent_id", "userEmail") VALUES
 ('clpgrpvgl0000ral43pg1q97j', '2023-11-27 10:30:20.037', 222.000000000000000000000000000000, '{"{\"title\": \"burger1\"}"}', 'delivered', NULL, 'user@gmail.com');
 
 
 INSERT INTO "public"."Product" ("id", "createdAt", "title", "desc", "img", "price", "isFeatured", "options", "catSlug") VALUES
-('clpgm0gq30003ram0qqcdtx3j', '2023-11-27 07:50:36.46', 'pizzas1', 'pizzas1 desc', NULL, 22.000000000000000000000000000000, 't', '{}', 'pizzas');
-INSERT INTO "public"."Product" ("id", "createdAt", "title", "desc", "img", "price", "isFeatured", "options", "catSlug") VALUES
 ('clpgm0gq70004ram0hc32q2cz', '2023-11-27 07:50:36.46', 'pizzas2', 'pizzas2 desc', NULL, 33.000000000000000000000000000000, 'f', '{}', 'pizzas');
 INSERT INTO "public"."Product" ("id", "createdAt", "title", "desc", "img", "price", "isFeatured", "options", "catSlug") VALUES
 ('clpgm0gq70005ram0337n8pm1', '2023-11-27 07:50:36.46', 'burgers', 'burgers desc', NULL, 55.000000000000000000000000000000, 't', '{}', 'burgers');
+INSERT INTO "public"."Product" ("id", "createdAt", "title", "desc", "img", "price", "isFeatured", "options", "catSlug") VALUES
+('clpgm0gq30003ram0qqcdtx3j', '2023-11-27 07:50:36.46', 'Sicilian', 'Ignite your taste buds with a fiery combination of spicy pepperoni, jalapeños, crushed red pepper flakes, and melted mozzarella cheese, delivering a kick with every bite.', '/temporary/p1.png', 24.900000000000000000000000000000, 't', '{"{\"title\": \"Small\", \"additionalPrice\": 0}","{\"title\": \"Medium\", \"additionalPrice\": 4}","{\"title\": \"Large\", \"additionalPrice\": 6}"}', 'pizzas');
 
 INSERT INTO "public"."Session" ("id", "sessionToken", "userId", "expires") VALUES
 ('clpgpveee0006rag0s4oc2ji8', '5157a86e-6e39-48ed-8d4f-50417aef8811', 'clpgpuqoh0000rag0ocyilvi4', '2023-12-27 09:38:38.623');
 
 
 INSERT INTO "public"."User" ("id", "name", "email", "emailVerified", "image", "isAdmin") VALUES
-('clpgpuqoh0000rag0ocyilvi4', 'bds sg', 'bdsthocu20@gmail.com', NULL, 'https://lh3.googleusercontent.com/a/ACg8ocLS5JKq_ZIABT8SmHK-6cpSbLSdp5kRhXm07DiOalx-=s96-c', 'f');
-INSERT INTO "public"."User" ("id", "name", "email", "emailVerified", "image", "isAdmin") VALUES
 ('clpgrlbej0002ra2sh5fyg1na', 'regular user', 'user@gmail.com', NULL, NULL, 'f');
+INSERT INTO "public"."User" ("id", "name", "email", "emailVerified", "image", "isAdmin") VALUES
+('clpgpuqoh0000rag0ocyilvi4', 'bds sg', 'bdsthocu20@gmail.com', NULL, 'https://lh3.googleusercontent.com/a/ACg8ocLS5JKq_ZIABT8SmHK-6cpSbLSdp5kRhXm07DiOalx-=s96-c', 't');
 
 
 
