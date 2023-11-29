@@ -13,25 +13,31 @@ type Props = {
 
 const Price = ({ product }: { product: ProductType }) => {
   const [total, setTotal] = useState(product.price);
+  const [productPrice, setProductPrice] = useState<number>(product.price);
   const [quantity, setQuantity] = useState(1);
   const [selected, setSelected] = useState(0);
 
   const { addToCart } = useCartStore();
 
   useEffect(() => {
+    useCartStore.persist.rehydrate()
+  }, [])
+
+  useEffect(() => {
     if (product.options && product.options?.length > 0) {
-      setTotal(
-        quantity * product.price + product.options[selected].additionalPrice
-      );
+      setTotal(+quantity * +product.price + +product.options[selected].additionalPrice);
+      setProductPrice(+product.price + +product.options[selected].additionalPrice)
+    } else {
+      setTotal(+quantity * +product.price);
     }
-  }, [quantity, selected, product.options, product.price]);
+  }, [quantity, selected, product]);
 
   const handleCart = () => {
     addToCart({
       id: product.id,
       title: product.title,
       img: product.img,
-      price: total,
+      price: parseFloat(parseFloat(total.toString()).toFixed(2)),
       ...(product.options && product.options.length > 0 && { optionTitle: product.options[selected].title }),
       quantity: quantity,
     })
@@ -40,7 +46,7 @@ const Price = ({ product }: { product: ProductType }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-2xl font-bold">${total}</h2>
+      <h2 className="text-2xl font-bold">${productPrice}</h2>
       {/* OPTIONS CONTAINER */}
       <div className="flex gap-4">
         {product.options && product.options?.length > 0 && product.options?.map((option, index) => (

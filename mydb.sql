@@ -150,7 +150,7 @@ INSERT INTO "public"."Product" ("id", "createdAt", "title", "desc", "img", "pric
 INSERT INTO "public"."Product" ("id", "createdAt", "title", "desc", "img", "price", "isFeatured", "options", "catSlug") VALUES
 ('clpgm0gq70005ram0337n8pm1', '2023-11-27 07:50:36.46', 'burgers', 'burgers desc', NULL, 55.000000000000000000000000000000, 't', '{}', 'burgers');
 INSERT INTO "public"."Product" ("id", "createdAt", "title", "desc", "img", "price", "isFeatured", "options", "catSlug") VALUES
-('clpgm0gq30003ram0qqcdtx3j', '2023-11-27 07:50:36.46', 'Sicilian', 'Ignite your taste buds with a fiery combination of spicy pepperoni, jalapeños, crushed red pepper flakes, and melted mozzarella cheese, delivering a kick with every bite.', '/temporary/p1.png', 24.900000000000000000000000000000, 't', '{"{\"title\": \"Small\", \"additionalPrice\": 0}","{\"title\": \"Medium\", \"additionalPrice\": 4}","{\"title\": \"Large\", \"additionalPrice\": 6}"}', 'pizzas');
+('clpgm0gq30003ram0qqcdtx3j', '2023-11-27 07:50:36.46', 'Sicilian', 'Ignite your taste buds with a fiery combination of spicy pepperoni, jalapeños, crushed red pepper flakes, and melted mozzarella cheese, delivering a kick with every bite.', '/temporary/p1.png', 24.600000000000000000000000000000, 't', '{"{\"title\": \"Small\", \"additionalPrice\": 0}","{\"title\": \"Medium\", \"additionalPrice\": 4}","{\"title\": \"Large\", \"additionalPrice\": 6}"}', 'pizzas');
 
 INSERT INTO "public"."Session" ("id", "sessionToken", "userId", "expires") VALUES
 ('clpgpveee0006rag0s4oc2ji8', '5157a86e-6e39-48ed-8d4f-50417aef8811', 'clpgpuqoh0000rag0ocyilvi4', '2023-12-27 09:38:38.623');
