@@ -12,8 +12,8 @@ const LoginPage = () => {
 
   const { data, status } = useSession()
 
-  console.log(">>>check data: ", data);
-  console.log(">>>check status: ", status);
+  // console.log(">>>check data: ", data);
+  // console.log(">>>check status: ", status);
 
   useEffect(() => {
     if (status === "authenticated") {
