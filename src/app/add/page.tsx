@@ -4,6 +4,14 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
+import {
+    getStorage,
+    ref,
+    uploadBytesResumable,
+    getDownloadURL,
+} from "firebase/storage";
+import { app } from "@/app/utils/firebase";
+
 
 type Inputs = {
     title: string;
@@ -34,9 +42,49 @@ const AddPage = () => {
     });
 
     const [options, setOptions] = useState<Option[]>([]);
-    const [file, setFile] = useState<File>();
+    const [file, setFile] = useState<File | null>();
+
+    const [media, setMedia] = useState("");
 
     const router = useRouter();
+
+    useEffect(() => {
+        const storage = getStorage(app);
+        const upload = () => {
+            if (file) {
+                const name = new Date().getTime() + file.name;
+                const storageRef = ref(storage, name);
+
+                const uploadTask = uploadBytesResumable(storageRef, file);
+
+                uploadTask.on(
+                    "state_changed",
+                    (snapshot) => {
+                        const progress =
+                            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        console.log("Upload is " + progress + "% done");
+                        switch (snapshot.state) {
+                            case "paused":
+                                console.log("Upload is paused");
+                                break;
+                            case "running":
+                                console.log("Upload is running");
+                                break;
+                        }
+                    },
+                    (error) => { },
+                    () => {
+                        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                            setMedia(downloadURL);
+                        });
+                    }
+                );
+            }
+
+        };
+        file && upload();
+        // console.log(">>>check file: ", file)
+    }, [file]);
 
     useEffect(() => {
         if (status === "unauthenticated" || session?.user.isAdmin === false) {
@@ -55,45 +103,24 @@ const AddPage = () => {
         setOption((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
         });
-    };
 
-    const handleChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const target = e.target as HTMLInputElement;
-        const item = (target.files as FileList)[0];
-        setFile(item);
-    };
-
-    const upload = async () => {
-        const data = new FormData();
-        data.append("file", file!);
-        data.append("upload_preset", "restaurant");
-
-        const res = await fetch("https://api.cloudinary.com/v1_1/lamadev/image", {
-            method: "POST",
-            headers: { "Content-Type": "multipart/form-data" },
-            body: data,
-        });
-
-        const resData = await res.json();
-        return resData.url;
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+        // console.log(">>>check handleSubmit: ", media, options, inputs)
+        // return
         try {
-            const url = await upload();
             const res = await fetch("http://localhost:3000/api/products", {
                 method: "POST",
                 body: JSON.stringify({
-                    img: url,
+                    img: media,
                     ...inputs,
                     options,
                 }),
             });
 
             const data = await res.json();
-
             router.push(`/product/${data.id}`);
         } catch (err) {
             console.log(err);
@@ -120,7 +147,9 @@ const AddPage = () => {
                     </label>
                     <input
                         type="file"
-                        onChange={handleChangeImg}
+                        onChange={(e) => {
+                            e.target.files && setFile(e.target.files[0])
+                        }}
                         id="file"
                         className="hidden"
                     />
@@ -150,6 +179,7 @@ const AddPage = () => {
                     <input
                         className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"
                         type="number"
+                        step="0.1"
                         placeholder="29"
                         name="price"
                         onChange={handleChange}
