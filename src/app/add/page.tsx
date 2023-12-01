@@ -99,15 +99,18 @@ const AddPage = () => {
             return { ...prev, [e.target.name]: e.target.value };
         });
     };
-    const changeOption = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const changeOption = async (e: React.ChangeEvent<HTMLInputElement>) => {
         setOption((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
         });
+        // let optionTemp = JSON.parse(JSON.stringify(option))
+        // optionTemp[e.target.name] = e.target.value
+        // console.log(">>> check optionTemp:", optionTemp)
+        // await setOption(Object.assign(optionTemp))
 
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
         // console.log(">>>check handleSubmit: ", media, options, inputs)
         // return
         try {
@@ -133,7 +136,7 @@ const AddPage = () => {
 
     return (
         <div className="p-4 lg:px-20 xl:px-40  flex items-center justify-center text-red-500">
-            <form onSubmit={handleSubmit} className="flex flex-wrap gap-6">
+            <div className="flex flex-wrap gap-6">
                 <h1 className="text-4xl mb-2 text-gray-300 font-bold">
                     Add New Product
                 </h1>
@@ -208,6 +211,7 @@ const AddPage = () => {
                         <input
                             className="ring-1 ring-red-200 p-4 rounded-sm placeholder:text-red-200 outline-none"
                             type="number"
+                            step="0.1"
                             placeholder="Additional Price"
                             name="additionalPrice"
                             onChange={changeOption}
@@ -215,12 +219,13 @@ const AddPage = () => {
                         <button
                             className="bg-gray-500 p-2 text-white"
                             onClick={() => setOptions((prev) => [...prev, option])}
+                        // onClick={() => setOptions([...options, ...[option]])}
                         >
                             Add Option
                         </button>
                     </div>
                     <div className="flex flex-wrap gap-4 mt-2">
-                        {options.map((opt) => (
+                        {options.length > 0 && options.map((opt) => (
                             <div
                                 key={opt.title}
                                 className="p-2  rounded-md cursor-pointer bg-gray-200 text-gray-400"
@@ -237,13 +242,14 @@ const AddPage = () => {
                     </div>
                 </div>
                 <button
-                    type="submit"
+                    // type="submit"
+                    onClick={handleSubmit}
                     className="bg-red-500 p-4 text-white w-48 rounded-md relative h-14 flex items-center justify-center"
                 >
                     Submit
                 </button>
                 <div style={{ height: 1, width: "100%", backgroundColor: "#ffcfcf" }}></div>
-            </form>
+            </div>
 
         </div>
     );
